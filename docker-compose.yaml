@@ -1,0 +1,12 @@
+version: '3.7'
+services:
+  cupsd:
+    container_name: cupsd
+    image: olbat/cupsd
+    ports:
+      - "632:631"
+    volumes:
+      - ./printers.conf:/etc/cups/printers.conf
+      - ./ppd:/etc/cups/ppd
+      - ./ssl:/etc/cups/ssl
+      - ./pdfs:/pdfs
