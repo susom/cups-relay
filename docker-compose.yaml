@@ -4,10 +4,12 @@ services:
     container_name: cupsd
 #    image: olbat/cupsd
     build: cupsd-php-apache
+#    env_file: redcap-secrets.env
     ports:
       - "632:631"
       - "8081:80"
     volumes:
+      - ./config.ini:/var/www/config.ini
       - ./html:/var/www/html
       - ./cups-config/printers.conf:/etc/cups/printers.conf
       - ./cups-config/ppd:/etc/cups/ppd
