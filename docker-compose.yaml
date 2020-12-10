@@ -2,11 +2,14 @@ version: '3.7'
 services:
   cupsd:
     container_name: cupsd
-    image: olbat/cupsd
+#    image: olbat/cupsd
+    build: cupsd-php-apache
     ports:
       - "632:631"
+      - "8081:80"
     volumes:
-      - ./printers.conf:/etc/cups/printers.conf
-      - ./ppd:/etc/cups/ppd
-      - ./ssl:/etc/cups/ssl
+      - ./html:/var/www/html
+      - ./cups-config/printers.conf:/etc/cups/printers.conf
+      - ./cups-config/ppd:/etc/cups/ppd
+      - ./cups-config/ssl:/etc/cups/ssl
       - ./pdfs:/pdfs

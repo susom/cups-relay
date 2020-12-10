@@ -1,3 +1,11 @@
+
+
+
+Added a new dockerfile that adds php and apache and supervisord to keep them all running
+
+# Setup for ENT
+Manually installed RICOH printer and then copied the ppd and ssl fo
+
 http://127.0.0.1:632/
 
 print / print
