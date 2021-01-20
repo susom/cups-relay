@@ -37,7 +37,7 @@ try {
 
             $project = new RedCapProject($apiUrl, $apiToken);
             $projectInfo = $project->exportProjectInfo();
-            print "<pre>" . print_r($projectInfo, true) . "</pre>";
+            //print "<pre>" . print_r($projectInfo, true) . "</pre>";
 
             foreach ($instruments as $instrument) {
                 $instrument = filter_var($instrument, FILTER_SANITIZE_STRING);
