@@ -1,5 +1,4 @@
-
-
+TODO: Update README!
 
 Added a new dockerfile that adds php and apache and supervisord to keep them all running
 
@@ -16,3 +15,5 @@ Please try telnetting from the REDCap server to 10.253.98.245 on Port 9100
 Driver came from:
 https://www.openprinting.org/printer/Ricoh/Ricoh-IM_350
 
+
+set up config.ini file

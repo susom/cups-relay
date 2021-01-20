@@ -2,3 +2,4 @@
 [redcap-settings]
 api-url = http://web/api
 api-token = foo
+printer-name = Ricoh3500_ENT
