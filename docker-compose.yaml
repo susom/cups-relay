@@ -1,11 +1,11 @@
-version: '3.7'
+version: '3.1'
 services:
   cupsd:
     container_name: cupsd
     build: cupsd-php-apache
-    ports:
-      - "632:631"
-      - "8081:80"
+#    ports:
+#      - "632:631"
+#      - "8081:80"
     volumes:
       - ./config.ini:/var/www/config.ini
       - ./html:/var/www/html
@@ -13,3 +13,8 @@ services:
       - ./cups-config/ppd:/etc/cups/ppd
       - ./cups-config/ssl:/etc/cups/ssl
       - ./pdfs:/pdfs
+
+networks:
+  default:
+    external:
+      name: redcapprod_redcap_prod
