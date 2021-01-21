@@ -84,7 +84,7 @@ try {
                     unlink($file);
                 }
             }
-            $result = ["success" => count($instruments) . " printed for $record_id on $printerName"];
+            $result = ["success" => implode(", ", $instruments) . " printed on $printerName"];
         } else {
             throw new Exception("Post is empty");
         }
