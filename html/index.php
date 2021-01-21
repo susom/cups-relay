@@ -1,12 +1,12 @@
 <?php
 
-error_reporting(E_ALL);
+date_default_timezone_set('America/Los_Angeles');
+error_reporting(E_ALL & ~E_NOTICE);
 // ini_set('display_errors', 1);
 ini_set('log_errors', 1);
 ini_set('error_log','/tmp/php_errors.log');
 
 // phpinfo();
-
 require_once("vendor/autoload.php");
 require_once("Plugin.php");
 
@@ -18,6 +18,24 @@ $ini = parse_ini_file('/var/www/config.ini');
 $apiUrl = $ini['api-url'];
 $apiToken = $ini['api-token'];
 $printerName = $ini['printer-name'];
+$logFileMax = $ini['log-file-max'];
+$testMode = $ini['test-mode'];
+
+Plugin::log("Starting");
+
+function pruneLogs($file, $lineCount) {
+    // Prune plugin and php_error log files
+    $output = "";
+    $retval = "";
+    if (!file_exists($file)) return;
+
+    exec( "tail -$lineCount $file > $file.temp", $output, $retval);
+    exec("rm $file");
+    rename("$file.temp",$file);
+    // if ($output != 1) error_log("pruneLog failure: " . print_r($output,true));
+}
+
+
 
 try {
 
@@ -55,10 +73,14 @@ try {
                     $output=null;
                     $retval=null;
                     $cmd = 'lp -d ' . $printerName . " " . $file;
-                    // exec( $cmd, $output, $retval);
-                    Plugin::log($cmd, $output, $retval);
+                    if ($testMode) {
+                        Plugin::log("TESTMODE: $file would have been printed to $printerName");
+                    } else {
+                        exec( $cmd, $output, $retval);
+                        Plugin::log($cmd, $output, $retval);
+                        Plugin::log($file . " printed to $printerName");
+                    }
                     // $result = ['success' => "$instrument printed"];
-                    Plugin::log($file . " printed to $printerName");
                     unlink($file);
                 }
             }
@@ -68,12 +90,25 @@ try {
         }
     } else {
         // Not a post request
-        throw new Exception("Request was not a POST");
+        if(isset($_GET['showLogs'])) {
+            $result = [
+                'logs'   => file_exists("/tmp/plugin.log")     ? file_get_contents("/tmp/plugin.log") : '',
+                'errors' => file_exists("/tmp/php_errors.log") ? file_get_contents("/tmp/php_errors.log") : ''
+            ];
+            Plugin::log("Logs Viewed");
+        } else {
+            throw new Exception("Request was not a POST");
+        }
     }
 } catch (\Exception $e) {
     Plugin::log("EXCEPTION", $e);
     $result = [ "error" => $e->getMessage() ];
 }
+
+// Prune plugin and php_error log files
+pruneLogs("/tmp/plugin.log", $logFileMax);
+pruneLogs("/tmp/php_errors.log", $logFileMax);
+
 
 if (!headers_sent()) header('Content-Type: application/json');
 

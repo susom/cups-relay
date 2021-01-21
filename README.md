@@ -1,19 +1,21 @@
-TODO: Update README!
+# Docker Container for CUPS Printing from REDCap
 
-Added a new dockerfile that adds php and apache and supervisord to keep them all running
+This docker container is configured with drivers for a printer in the ENT offices:
+ * ENT Printer1860 is a RICOH IM350F.
+ * Connection can be tested with telnet to 10.253.98.245 on Port 9100
 
-# Setup for ENT
-Manually installed RICOH printer and then copied the ppd and ssl fo
+A firewall exception was added that allows printing from the current REDCap production server where this container will also run.
 
-http://127.0.0.1:632/
+The driver for the Ricoh printer came from: https://www.openprinting.org/printer/Ricoh/Ricoh-IM_350 and may be black/white only at the moment.
 
-print / print
+Inside the docker network, this container listens on port 80 for inbound API calls from the REDCap EM proj_rhino.
 
-ENT Printer1860 is a RICOH IM350F.
-Please try telnetting from the REDCap server to 10.253.98.245 on Port 9100
+It will display logs with a GET request containing showLogs as a querystring parameter:  e.g. http://cupsd/?showLogs
 
-Driver came from:
-https://www.openprinting.org/printer/Ricoh/Ricoh-IM_350
+If passed a post request containing:
+ - record_id
+ - event_name
+ - instruments (array)
+ - compact_display (boolean)
 
-
-set up config.ini file
+It will pull the PDF using the REDCap API (defined in config.ini) and print the instruments one-by-one to the configured printer.

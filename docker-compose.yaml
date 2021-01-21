@@ -2,9 +2,7 @@ version: '3.7'
 services:
   cupsd:
     container_name: cupsd
-#    image: olbat/cupsd
     build: cupsd-php-apache
-#    env_file: redcap-secrets.env
     ports:
       - "632:631"
       - "8081:80"
