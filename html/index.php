@@ -72,7 +72,8 @@ try {
                     // Result was not json meaning likely a PDF - so let's print the file
                     $output=null;
                     $retval=null;
-                    $cmd = 'lp -d ' . $printerName . " " . $file;
+                    $options = "-o number-up=2 -o sides=two-sided-long-edge ";
+                    $cmd = 'lp -d ' . $printerName . ' ' . $options . $file;
                     if ($testMode) {
                         Plugin::log("TESTMODE: $file would have been printed to $printerName");
                     } else {
