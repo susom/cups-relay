@@ -3,6 +3,7 @@ services:
   cupsd:
     container_name: cupsd
     build: cupsd-php-apache
+#   Comment out ports for production
 #    ports:
 #      - "632:631"
 #      - "8081:80"
