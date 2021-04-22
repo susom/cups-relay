@@ -14,11 +14,21 @@ Inside the docker network, this container listens on port 80 for inbound API cal
 
 It will display logs with a GET request containing showLogs as a querystring parameter:  e.g. http://cupsd/?showLogs
 
+## Post Method 1: Print array of instruments as PDFs
 If passed a post request containing:
  - record_id
  - event_name
  - instruments (array)
  - compact_display (boolean)
+
+## Post Method 2: Print a single file-upload field
+ - record_id
+ - event_name
+ - field_name
+ When this is receveied, it will download the field (so it must be a file-upload field and must also not be empty).
+ It will then print this field.
+
+
 
 It will pull the PDF using the REDCap API (defined in config.ini) and print the instruments one-by-one to the configured printer.
 
