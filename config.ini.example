@@ -2,6 +2,6 @@
 [redcap-settings]
 api-url = http://web/api
 api-token = foo
-printer-name = Ricoh3500_ENT
+printer-name = Ricoh3500_ENT_V2
 log-file-max = 500
 test-mode = 1
