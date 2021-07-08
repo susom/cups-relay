@@ -4,9 +4,9 @@ services:
     container_name: cupsd
     build: cupsd-php-apache
 #   Comment out ports for production
-#    ports:
-#      - "632:631"
-#      - "8081:80"
+    ports:
+       - "632:631"
+       - "8081:80"
     volumes:
       - ./config.ini:/var/www/config.ini
       - ./html:/var/www/html
@@ -14,8 +14,8 @@ services:
       - ./cups-config/ppd:/etc/cups/ppd
       - ./cups-config/ssl:/etc/cups/ssl
       - ./pdfs:/pdfs
+      - ./virtual-pdf-output:/var/spool/cups
 
 networks:
   default:
-    external:
-      name: redcapprod_redcap_prod
+    name: rl_redcap_network

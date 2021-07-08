@@ -59,9 +59,13 @@ try {
                 // $projectInfo = $project->exportProjectInfo();
                 $file     = "/tmp/" . $record_id . "_" . $event_name . "_" . $field_name . ".pdf";
                 $contents = $project->exportFile($record_id,$field_name,$event_name);
-
-                Plugin::log("Obtained $file with size " . filesize($file));
                 file_put_contents($file, $contents);
+
+                if (file_exists($file)) {
+                    Plugin::log("Obtained $file with size " . filesize($file));
+                } else {
+                    Plugin::log("Unable to find downloaded file: $file");
+                }
 
                 $output=null;
                 $retval=null;
