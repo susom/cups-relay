@@ -1,4 +1,12 @@
 *PPD-Adobe: "4.3"
+*"*RIIRIPSFont: true
+*for: true
+*key: true
+*Missing: true
+*NimbusMonoPS-Bold": true
+*NimbusRoman-Bold": true
+*NimbusSans-Bold": true
+*value: true
 *DefaultCollate: False
 *DefaultDuplex: None
 *DefaultInputSlot: 1Tray
